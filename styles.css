@@ -1,0 +1,40 @@
+* {
+    border: 0;
+    margin: 0;
+    border: border-box;
+}
+body {
+    background-color: rgb(1, 1, 52);
+}
+#navbar {
+    margin-top: 0;
+    height: 3rem;
+    width: 100%;
+    background-color: rgb(1, 1, 94);
+}
+#title {
+    padding-left: 10px;
+    color: white;
+    font-weight: 700;
+}
+#main {
+    display: flex;
+    justify-content: space-evenly;
+}
+.icon {
+    color: rgb(255, 237, 237);
+    text-decoration: none;
+    font-weight: 700;
+    cursor: pointer;
+}
+.icon.active {
+    border-bottom: 2px solid white;
+}
+#heading {
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+h1 {
+    color: rgb(106, 0, 255);
+}

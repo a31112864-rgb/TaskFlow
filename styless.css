@@ -1,0 +1,124 @@
+* {
+    padding: 0;
+    margin: 0;
+    border: border-box;
+}
+body {
+    background-color: rgb(1, 1, 52);
+}
+#navbar {
+    height: 3rem;
+    width: 100%;
+    background-color: rgb(1, 1, 94);
+}
+#title {
+    padding-left: 10px;
+    color: white;
+    font-weight: 700;
+}
+#main {
+    display: flex;
+    justify-content: space-evenly;
+}
+.icon {
+    color: rgb(255, 237, 237);
+    text-decoration: none;
+    font-weight: 700;
+    cursor: pointer;
+}
+.icon.active {
+    border-bottom: 2px solid white;
+}
+#heading {
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+#titl {
+    color: rgb(106, 0, 255);
+}
+#TaskFlow {
+    display: flex;
+}
+#whole-info{
+    display: flex;
+    flex-direction: column;
+    padding-left: 50px;
+}
+.data {
+    color: white;
+}
+#data2 {
+    color: rgb(0, 85, 255);
+}
+#info {
+    width: 500px;
+    margin-top: 20px;
+}
+#image {
+    margin-left: auto;
+    margin-right: 100px;
+    height: 300px;
+    width: 350px;
+    border-radius: 12px;
+}
+#whole {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+#cards {
+    display: grid;
+    grid-template-columns: repeat(3,220px);
+    grid-template-rows: repeat(2,170px);
+    gap: 20px;
+    border-radius: 12px;
+}
+.card {
+    display: flex;
+    flex-direction: column;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: rgb(42, 0, 0);
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 12px;
+}
+.icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    color: white;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+#icon1 {
+    background-color: rgb(0, 128, 115);
+}
+.heading {
+    color: white;
+    margin-bottom: 7px;
+}
+#icon2 {
+    background-color: rgb(123, 255, 0);
+}
+#icon3 {
+    background-color: rgb(0, 68, 255);
+}
+#icon4 {
+    background-color: rgb(255, 128, 0);
+}
+#icon5 {
+    background-color: rgb(123, 255, 0);
+}
+#icon6 {
+    background-color: rgb(0, 128, 115);
+}
+#head {
+    color: rgb(222, 221, 221);
+    padding-bottom: 25px;
+}

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css" integrity="sha512-QeR2VH+lsBE5LSAe1Q5EnTBbe7XTBubt8dG93Y7gidSgdMCr8nVqKcfKAMyN96SV8KDbZVTDXChatu5G2KQGzg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+<body>
+    <div id="navbar">
+        <div id="title"><h3>TaskFlow</h3></div>
+        <div id="main">
+            <a href="index.html" class="icon active" onclick="setActive1(this)">Home</a>
+            <a href="about us.html" class="icon" onclick="setActive1(this)">About Us</a>
+            <a href="contact us.html" class="icon" onclick="setActive1(this)">Contact Us</a>
+        </div>
+    </div>
+    <div id="maincontent">
+        <div id="heading">
+            <h1 id="name">Organise Your Day,Achieve More!! </h1> 
+        </div>
+        <div id="whole">
+            <div id="addtask">
+                <label for="taskbar"></label>
+                <input id="taskbar" type="text" placeholder="what do you want to do today!!">
+                <button type="button" id="btn" onclick="addTask()">+ Add Task</button>
+            </div>
+        </div>
+        <div id="boxes">
+            <div id="box1">
+                <div id="icon1">
+                    <h2><i class="fa-solid fa-crosshairs"></i></h2>
+                </div>
+                <div id="info">
+                    <h2 id="num">0</h2>
+                    <p>Total Tasks</p>
+                </div>
+            </div>
+            <div id="box2">
+                <div id="icon2">
+                    <h2><i class="fa-solid fa-check"></i></h2>
+                </div>
+                <div id="info2">
+                    <h2 id="num2">0</h2>
+                    <p>Completed</p>
+                </div>
+            </div>
+            <div id="box3">
+                <div id="icon3">
+                    <h2><i class="fa-regular fa-clock"></i></h2>
+                </div>
+                <div id="info3">
+                    <h2 id="num3">0</h2>
+                    <p>Pending</p>
+                </div>
+            </div>
+        </div>
+        <div id="whole2">
+            <div id="showtask">
+                <div id="top">
+                    <div id="titl">
+                        <h3 id="name2">Your Tasks</h3>
+                    </div>
+                    
+                    <div id="icons">
+                        <button id="all" class="icons active" onclick="setActive(this)">All</button>
+                        <button id="active" class="icons" onclick="setActive(this)">Done</button>
+                        <button id="pending" class="icons" onclick="setActive(this)">Pending</button>
+                    </div>
+                </div>
+                <ul id="tasks">
+
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>
