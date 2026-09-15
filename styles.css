@@ -33,8 +33,59 @@ body {
 #heading {
     text-align: center;
     margin-top: 25px;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
 }
 h1 {
     color: rgb(106, 0, 255);
+}
+#subhead {
+    text-align: center;
+    color: rgb(225, 225, 225);
+    padding-bottom: 1rem;
+}
+#whole2 {
+    display: flex;
+    justify-content: center;
+}
+#email {
+    width: 40vw;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 10px 5px 10px;
+    background-color: rgb(14, 14, 14);
+    border-radius: 12px;
+}
+#para {
+    color: rgb(219, 219, 219);
+}
+h4 {
+    color: white;
+}
+#whole3 {
+    display: flex;
+    justify-content: center;
+    padding-top: 25px;
+}
+#btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 90px;
+    background-color: rgb(255, 183, 0);
+    border-radius: 6px;
+    border: none;
+}
+#btnn {
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    
+}
+#btn:active {
+    border: 2px solid white;
+}
+h4 {
+    font-size: clamp(12px,1vw,25px);
 }
