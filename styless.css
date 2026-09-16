@@ -1,127 +1,491 @@
 * {
-    padding: 0;
     margin: 0;
-    border: border-box;
+    padding: 0;
+    box-sizing: border-box;
 }
+
+html {
+    scroll-behavior: smooth;
+}
+
 body {
+    min-height: 100vh;
     background-color: rgb(1, 1, 52);
+    font-family: Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
 }
+
+
+/* =========================
+   NAVBAR
+========================= */
+
 #navbar {
-    height: 3rem;
     width: 100%;
+    min-height: 60px;
+    padding: 0 5%;
+
     background-color: rgb(1, 1, 94);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
 #title {
-    padding-left: 10px;
     color: white;
     font-weight: 700;
 }
+
+#title h3 {
+    font-size: 24px;
+}
+
 #main {
     display: flex;
-    justify-content: space-evenly;
+    align-items: center;
+    gap: 25px;
 }
+
 .icon {
     color: rgb(255, 237, 237);
     text-decoration: none;
     font-weight: 700;
     cursor: pointer;
+
+    padding: 20px 5px 8px;
+
+    transition: 0.3s ease;
 }
+
+.icon:hover {
+    color: #8ecbff;
+}
+
 .icon.active {
     border-bottom: 2px solid white;
 }
+
+
+/* =========================
+   PAGE HEADING
+========================= */
+
 #heading {
     text-align: center;
+
     margin-top: 25px;
-    margin-bottom: 25px;
+    margin-bottom: 35px;
 }
+
 #titl {
     color: rgb(106, 0, 255);
+
+    font-size: clamp(32px, 5vw, 50px);
 }
+
+
+/* =========================
+   ABOUT TASKFLOW
+========================= */
+
 #TaskFlow {
+    width: 90%;
+    max-width: 1200px;
+
+    margin: 0 auto 50px;
+
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 50px;
 }
-#whole-info{
+
+#whole-info {
+    flex: 1;
+
     display: flex;
     flex-direction: column;
-    padding-left: 50px;
+
+    padding-left: 20px;
 }
+
+#titl2 {
+    font-size: clamp(26px, 4vw, 38px);
+}
+
 .data {
     color: white;
 }
-#data2 {
-    color: rgb(0, 85, 255);
-}
+
 #info {
-    width: 500px;
+    width: 100%;
+    max-width: 600px;
+
     margin-top: 20px;
 }
-#image {
-    margin-left: auto;
-    margin-right: 100px;
-    height: 300px;
-    width: 350px;
-    border-radius: 12px;
+
+#info p {
+    color: rgb(216, 216, 216);
+
+    font-size: 16px;
+    line-height: 1.7;
 }
+
+#data2 {
+    color: rgb(0, 85, 255);
+
+    margin-top: 20px;
+
+    font-size: 20px;
+}
+
+
+/* =========================
+   IMAGE
+========================= */
+
+#image {
+    width: 100%;
+    max-width: 400px;
+    height: 300px;
+
+    object-fit: cover;
+
+    border-radius: 12px;
+
+    margin-right: 20px;
+}
+
+
+/* =========================
+   WHY CHOOSE TASKFLOW
+========================= */
+
 #whole {
+    width: 100%;
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 25px;
-    padding-bottom: 25px;
+
+    padding: 40px 5%;
 }
+
+#head {
+    color: rgb(222, 221, 221);
+
+    text-align: center;
+
+    padding-bottom: 25px;
+
+    font-size: clamp(28px, 4vw, 40px);
+}
+
+
+/* =========================
+   CARDS
+========================= */
+
 #cards {
+    width: 100%;
+    max-width: 1000px;
+
     display: grid;
-    grid-template-columns: repeat(3,220px);
-    grid-template-rows: repeat(2,170px);
+
+    grid-template-columns: repeat(3, 1fr);
+
     gap: 20px;
+
     border-radius: 12px;
 }
+
 .card {
+    min-height: 170px;
+
     display: flex;
     flex-direction: column;
-    padding-left: 10px;
-    padding-right: 10px;
+
+    padding: 15px;
+
     background-color: rgb(42, 0, 0);
-    padding-top: 10px;
-    padding-bottom: 5px;
+
     border-radius: 12px;
+
+    transition: 0.3s ease;
 }
+
+.card:hover {
+    transform: translateY(-5px);
+
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+
+/* =========================
+   ICONS
+========================= */
+
 .icons {
     display: flex;
     justify-content: center;
     align-items: center;
+
     width: 45px;
     height: 45px;
+
     color: white;
+
     border-radius: 50%;
+
     margin-bottom: 10px;
 }
+
 #icon1 {
     background-color: rgb(0, 128, 115);
 }
-.heading {
-    color: white;
-    margin-bottom: 7px;
-}
+
 #icon2 {
     background-color: rgb(72, 0, 255);
 }
+
 #icon3 {
     background-color: rgb(0, 68, 255);
 }
+
 #icon4 {
     background-color: rgb(255, 42, 0);
 }
+
 #icon5 {
     background-color: rgb(123, 255, 0);
 }
+
 #icon6 {
     background-color: rgb(0, 128, 115);
 }
-#head {
-    color: rgb(222, 221, 221);
-    padding-bottom: 25px;
+
+
+/* =========================
+   CARD TEXT
+========================= */
+
+.heading {
+    color: white;
+
+    margin-bottom: 7px;
 }
+
+.heading h3 {
+    font-size: 18px;
+}
+
 .data p {
     color: rgb(216, 216, 216);
+
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 900px) {
+
+    #TaskFlow {
+        width: 90%;
+
+        gap: 30px;
+    }
+
+    #whole-info {
+        padding-left: 0;
+    }
+
+    #image {
+        max-width: 330px;
+        height: 270px;
+
+        margin-right: 0;
+    }
+
+    #cards {
+        grid-template-columns: repeat(2, 1fr);
+
+        max-width: 700px;
+    }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    /* Navbar */
+
+    #navbar {
+        min-height: auto;
+
+        padding: 15px 5%;
+
+        flex-direction: column;
+
+        gap: 12px;
+    }
+
+    #title h3 {
+        font-size: 23px;
+    }
+
+    #main {
+        width: 100%;
+
+        justify-content: center;
+
+        gap: 15px;
+    }
+
+    .icon {
+        padding: 5px;
+
+        font-size: 14px;
+    }
+
+
+    /* Heading */
+
+    #heading {
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
+    #titl {
+        font-size: 36px;
+    }
+
+
+    /* About section */
+
+    #TaskFlow {
+        width: 90%;
+
+        flex-direction: column;
+
+        gap: 30px;
+
+        align-items: stretch;
+    }
+
+    #whole-info {
+        width: 100%;
+
+        padding-left: 0;
+    }
+
+    #heading2 {
+        text-align: center;
+    }
+
+    #titl2 {
+        font-size: 29px;
+    }
+
+    #info {
+        width: 100%;
+        max-width: none;
+
+        margin-top: 15px;
+    }
+
+    #info p {
+        font-size: 15px;
+        line-height: 1.7;
+    }
+
+    #data2 {
+        font-size: 18px;
+
+        text-align: center;
+    }
+
+
+    /* Image */
+
+    #image {
+        width: 100%;
+        max-width: none;
+
+        height: 250px;
+
+        margin: 0;
+
+        object-fit: cover;
+    }
+
+
+    /* Why Choose */
+
+    #whole {
+        padding: 30px 5%;
+    }
+
+    #head {
+        font-size: 29px;
+
+        padding-bottom: 25px;
+    }
+
+
+    /* Cards */
+
+    #cards {
+        width: 100%;
+
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+    }
+
+    .card {
+        min-height: 160px;
+
+        padding: 18px;
+    }
+}
+
+
+/* =========================
+   SMALL MOBILE
+========================= */
+
+@media (max-width: 380px) {
+
+    #main {
+        gap: 8px;
+    }
+
+    .icon {
+        font-size: 13px;
+    }
+
+    #titl {
+        font-size: 32px;
+    }
+
+    #titl2 {
+        font-size: 26px;
+    }
+
+    #image {
+        height: 220px;
+    }
+
+    #head {
+        font-size: 26px;
+    }
 }
