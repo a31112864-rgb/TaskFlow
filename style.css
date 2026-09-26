@@ -587,3 +587,124 @@ body {
         padding: 10px;
     }
 }
+
+/* ==========================================
+   TASKFLOW REGISTRATION OVERLAY FORM STYLES 
+   ========================================== */
+
+#auth-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85); /* Deep translucent overlay matching the space vibe */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    backdrop-filter: blur(5px); /* Softly blurs your landing background image behind */
+    padding: 20px;
+}
+
+#auth-overlay > div {
+    background-color: black; /* Matches your task card base styling */
+    border: 1px solid #292929; /* Clean subtle container boundary */
+    padding: 35px 25px;
+    border-radius: 12px;
+    box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.7);
+    text-align: center;
+    width: 100%;
+    max-width: 420px;
+    box-sizing: border-box;
+    animation: fadeInForm 0.3s ease-out;
+}
+
+#auth-overlay h3 {
+    margin: 0 0 10px 0;
+    color: white;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+#auth-overlay p {
+    margin: 0 0 25px 0;
+    font-size: 14px;
+    color: #ccc;
+    line-height: 1.5;
+}
+
+#auth-overlay input[type="tel"] {
+    width: 100%;
+    height: 45px;
+    background-color: #121212;
+    color: white;
+    padding: 0 15px;
+    margin-bottom: 20px;
+    border: 1px solid #333;
+    border-radius: 6px;
+    font-size: 16px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+#auth-overlay input[type="tel"]::placeholder {
+    color: #777;
+}
+
+#auth-overlay input[type="tel"]:focus {
+    border-color: rgb(0, 128, 255); /* Matches taskbar search active focus line ring glow */
+}
+
+#auth-overlay button {
+    width: 100%;
+    height: 45px;
+    background-color: rgb(0, 128, 255); /* Aligns with your #btn theme */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+#auth-overlay button:hover {
+    background-color: rgb(0, 105, 215);
+}
+
+#auth-overlay button:active {
+    transform: scale(0.98);
+}
+
+#auth-overlay button:disabled {
+    background-color: #333;
+    color: #777;
+    cursor: not-allowed;
+}
+
+/* Entrance Animation */
+@keyframes fadeInForm {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Tablet & Mobile Layout Adaptations */
+@media (max-width: 550px) {
+    #auth-overlay > div {
+        padding: 30px 20px;
+    }
+    #auth-overlay h3 {
+        font-size: 22px;
+    }
+    #auth-overlay p {
+        font-size: 13px;
+    }
+}
