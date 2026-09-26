@@ -1,5 +1,5 @@
-const CURRENT_HOST = window.location.hostname;
-const API_URL = `http://${CURRENT_HOST}:8000`; 
+// Automatically matches '127.0.0.1' or 'localhost' depending on your browser address bar
+const API_URL = "http://127.0.0.1:8000";
 
 // Initialize the app when the page loads
 document.addEventListener("DOMContentLoaded", async () => {
@@ -10,71 +10,45 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
-// Helper function to check if the user_id cookie exists
+// Helper function to check if the user_id cookie or localStorage item exists
 function hasUserIdCookie() {
-    return document.cookie.split(';').some(item => item.trim().startsWith('user_id='));
+    const hasCookie = document.cookie.split(';').some(item => item.trim().startsWith('user_id='));
+    const hasStorage = localStorage.getItem('user_id') !== null;
+    return hasCookie || hasStorage;
 }
 
-// Dynamically creates and injects a clean overlay form into your page
+// Helper function to get the user ID safely from either source
+function getUserId() {
+    // 1. Try reading from cookie context
+    const match = document.cookie.match(/(?:^|; )user_id=([^;]*)/);
+    if (match) return parseInt(match, 10);
+    
+    // 2. Fallback to localStorage if browser blocks local HTTP cookies
+    const storageId = localStorage.getItem('user_id');
+    return storageId ? parseInt(storageId, 10) : null;
+}
+
+// Dynamically creates and injects the overlay form into your page
 function showRegistrationForm() {
-    // 1. Create overlay container
     const overlay = document.createElement("div");
     overlay.id = "auth-overlay";
-    overlay.style.position = "fixed";
-    overlay.style.top = "0";
-    overlay.style.left = "0";
-    overlay.style.width = "100%";
-    overlay.style.height = "100%";
-    overlay.style.backgroundColor = "rgba(0, 0, 0, 0.75)";
-    overlay.style.display = "flex";
-    overlay.style.justifyContent = "center";
-    overlay.style.alignItems = "center";
-    overlay.style.zIndex = "10000";
 
-    // 2. Create the form wrapper matching your style
     const formBox = document.createElement("div");
-    formBox.style.backgroundColor = "#fff";
-    formBox.style.padding = "30px";
-    formBox.style.borderRadius = "8px";
-    formBox.style.boxShadow = "0px 4px 15px rgba(0,0,0,0.2)";
-    formBox.style.textAlign = "center";
-    formBox.style.width = "90%";
-    formBox.style.maxWidth = "400px";
-
+    
     const title = document.createElement("h3");
     title.textContent = "Welcome to TaskFlow";
-    title.style.marginBottom = "15px";
-    title.style.color = "#333";
 
     const subtitle = document.createElement("p");
     subtitle.textContent = "Enter your phone number to manage your tasks.";
-    subtitle.style.marginBottom = "20px";
-    subtitle.style.fontSize = "14px";
-    subtitle.style.color = "#666";
 
     const input = document.createElement("input");
     input.type = "tel";
     input.placeholder = "Phone Number (e.g., 9876543210)";
     input.required = true;
-    input.style.width = "100%";
-    input.style.padding = "10px";
-    input.style.marginBottom = "15px";
-    input.style.border = "1px solid #ccc";
-    input.style.borderRadius = "4px";
-    input.style.boxSizing = "border-box";
 
     const submitBtn = document.createElement("button");
     submitBtn.textContent = "Get Started";
-    submitBtn.style.width = "100%";
-    submitBtn.style.padding = "10px";
-    submitBtn.style.backgroundColor = "#28a745";
-    submitBtn.style.color = "#fff";
-    submitBtn.style.border = "none";
-    submitBtn.style.borderRadius = "4px";
-    submitBtn.style.cursor = "pointer";
-    submitBtn.style.fontWeight = "bold";
 
-    // Assemble form structure
     formBox.appendChild(title);
     formBox.appendChild(subtitle);
     formBox.appendChild(input);
@@ -82,7 +56,6 @@ function showRegistrationForm() {
     overlay.appendChild(formBox);
     document.body.appendChild(overlay);
 
-    // 3. Form submission click wrapper handler
     submitBtn.addEventListener("click", async () => {
         const phone = input.value.trim();
         if (!phone) {
@@ -98,12 +71,18 @@ function showRegistrationForm() {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ phone_no: phone }),
-                credentials: "include" // Important to fetch/save cross-origin cookies
+                credentials: "include"
             });
 
             if (!response.ok) throw new Error("Registration failed.");
 
-            // Success: Remove the form from sight and start up the tasks workflow loop
+            const result = await response.json();
+            
+            // Safety backup so local testing never loses your login state
+            if (result.id) {
+                localStorage.setItem('user_id', result.id);
+            }
+
             overlay.remove();
             await fetchTasks();
 
@@ -119,14 +98,17 @@ function showRegistrationForm() {
 // Fetch all tasks for the logged-in user from the database
 async function fetchTasks() {
     try {
-        const response = await fetch(`${API_URL}/tasks`, { credentials: "include" });
+        const currentUserId = getUserId();
+        // Fallback: If running locally without cookies, pass user_id as a query parameter
+        const url = currentUserId ? `${API_URL}/tasks?user_id=${currentUserId}` : `${API_URL}/tasks`;
+        
+        const response = await fetch(url, { credentials: "include" });
         if (!response.ok) throw new Error("Failed to fetch tasks from server.");
         
         const tasks = await response.json();
         const taskList = document.getElementById("tasks");
-        taskList.innerHTML = ""; // Clear placeholders
+        taskList.innerHTML = "";
 
-        // Render every task retrieved from your FastAPI backend
         tasks.forEach(task => {
             renderTaskElement(task.id, task.data, task.completed || false);
         });
@@ -144,23 +126,47 @@ async function addTask() {
 
     if (text === "") return;
 
+    const currentUserId = getUserId();
+
+    if (!currentUserId) {
+        alert("Session expired. Please enter your phone number again.");
+        showRegistrationForm();
+        return;
+    }
+
     try {
-        // Send task text to the FastAPI server
         const response = await fetch(`${API_URL}/task`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ data: text }), 
+            body: JSON.stringify({ 
+                user_id: currentUserId, 
+                data: text 
+            }), 
             credentials: "include"
         });
 
         if (!response.ok) {
-            alert("Unable to add task. Please re-authenticate your session.");
+            alert("Unable to add task. Please check your connection.");
             return;
         }
 
-        const result = await response.json();
-        const taskId = result.task_id || result.id; 
+                // Parse the database confirmation reply payload
+        const result = await response.json().catch(() => ({}));
         
+        // FIX: Pull the precise task_id or fallback integer from the FastAPI dictionary response
+        let taskId = Date.now(); // Fallback timestamp index
+        if (result && typeof result === 'object') {
+            taskId = result.task_id || result.id || taskId;
+        } else if (typeof result === 'number' || typeof result === 'string') {
+            taskId = result;
+        }
+        
+        // Render item on the UI using the verified database task ID context
+        renderTaskElement(taskId, text, false);
+
+        taskbar.value = "";
+        updateTaskCount();
+
         renderTaskElement(taskId, text, false);
 
         taskbar.value = "";
@@ -272,3 +278,4 @@ function setActive(button) {
         }
     });
 }
+
